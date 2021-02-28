@@ -50,7 +50,7 @@ function TableComponent(props) {
                         {/*Hay veces que una funcion onclick que este siplemente entre {} dara error por que se ejecutara siempre sin nosotros haber dado click
                         para solucionar esto utilizamos arros function para que solo se active cuando hagamos click
                         Este problema sucede mayormente cuando la funcion utiliza parentesis al final ya que debemos de agregar un parametro*/}
-                        <td> <Button color="primary" onClick={()=> props.openEditModal(user)}>Editar</Button>  <Button onClick={()=> openDeleteModal(user.id)} color="danger">Eliminar</Button></td>
+                        <td> <Button color="primary" onClick={()=> props.openEditModal(user.id)}>Editar</Button>  <Button onClick={()=> openDeleteModal(user.id)} color="danger">Eliminar</Button></td>
                     </tr>
 
                 ))}

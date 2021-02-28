@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import {Button, FormGroup, Modal, ModalBody, ModalFooter, ModalHeader} from "reactstrap";
 import axios from "axios";
 
@@ -8,13 +8,27 @@ function EditModalComponent(props) {
     //Objeto donde almacenare mis datos del modal para mandarlos al api
     const form = {
         id: props.actualUser.id,
-        name: "",
-        lastName: ""
+        name: props.actualUser.name,
+        lastName: props.actualUser.name
     };
 
-    //falla lo de actualizar los datos
-    const [name, setName] = useState(props.actualUser.name);
-    const [lastName, setLastName] = useState(props.actualUser.name);
+    //Especifico un objeto con campos vacios para mi user initial
+    const [name, setName] = useState("");
+    const [lastName, setLastName] = useState("");
+
+    useEffect(() => {
+
+        //problema mayor resuelto, como deseo que los campos tenga los campos del user enviado y que se actualicen en tiempo real
+        //debo de entrar los estados que se encargaran de los campos dentro del useEffect para que cuando el user cambie
+        //estos tambien cambien de valores y que tengan los del usuario correspondiente el useEffect es importantisimo
+        setLastName(props.actualUser.lastName);
+        setName(props.actualUser.name);
+
+        //Tengo que ejecutar el useEffect (renderizar la pagina) cada vez que el actualUser cambia
+    }, [props.actualUser]);
+
+
+
 
     //Aqui guardo los cambios introducidos en los inputs
     const handleChangeName = (event) => {
@@ -26,8 +40,7 @@ function EditModalComponent(props) {
 
     const handleChangeLastName = (event) => {
 
-        form.lastName = event.target.value;
-
+        form.lastName =  event.target.value;
         setLastName(form.lastName);
     }
 
@@ -38,8 +51,6 @@ function EditModalComponent(props) {
 
         form.name = name;
         form.lastName = lastName;
-
-        console.log("Form:", form);
 
         await axios.put(`http://localhost:88/api/update`, form);
 
@@ -69,7 +80,7 @@ function EditModalComponent(props) {
                     <ModalBody>
                         <FormGroup>
                             <label>Id</label>
-                            <input className="form-control" value={props.actualUser.id} readOnly type="text"/>
+                            <input className="form-control" value={form.id} readOnly type="text"/>
                         </FormGroup>
                         <label>Nombre</label>
                         <input className="form-control" name="name" type="text" value={name} onChange={handleChangeName}/>

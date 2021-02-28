@@ -14,6 +14,9 @@ function App () {
 
   //Especifico un objeto con campos vacios para mi user initial
   const [actualUser, setActualUser] = useState({id:0, name:"", lastName:""});
+
+  const [actualUserToEdit, setActualUserToEdit] = useState({id:0, name:"", lastName:""});
+  const [actualId, setActualId] = useState(0);
   const [modalState, setModalState] = useState(false);
   const [modalEditState, setModalEditState] = useState(false);
 
@@ -29,7 +32,13 @@ function App () {
       setUsers(res.data);
     });
 
-  }, []);
+      axios.get(`http://localhost:88/api/get/${actualId}`).then(res => {
+
+          setActualUserToEdit(res.data);
+      });
+
+      //Tengo que ejecutar el useEffect (renderizar la pagina) cada vez que el actualId cambia
+  }, [actualId]);
 
 
 
@@ -47,9 +56,9 @@ function App () {
 
 
     //funcion encargada de abrir modal
-    const openEditModal = (actualUser) =>{
+    const openEditModal = (actualId) =>{
 
-        setActualUser(actualUser);
+        setActualId(actualId);
         setModalEditState(true);
     }
 
@@ -70,7 +79,7 @@ function App () {
             {/*Mediante los props le mando al componente la funcion para cerrar el modal y tambie el valor del modal de si es true o false*/}
             <ModalComponent setUsers={setUsers} actualUser={actualUser} setActualUser={setActualUser} modalState={modalState} closeModal={closeModal} />
 
-            <EditModalComponent setUsers={setUsers} actualUser={actualUser} setActualUser={setActualUser} modalState={modalEditState} closeEditModal={closeEditModal} />
+            <EditModalComponent setUsers={setUsers} actualUser={actualUserToEdit} actualId={actualId} setActualUser={setActualUserToEdit} modalState={modalEditState} closeEditModal={closeEditModal} />
 
           </Container>
 
