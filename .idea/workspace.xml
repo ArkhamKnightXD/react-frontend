@@ -2,15 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="240fe25e-43c4-463f-bbf9-ffb9231e175a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/DeleteModalComponent.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ModalComponent.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/UserService.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/EditModalComponent.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ModalComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/ModalComponent.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/TableComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/TableComponent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,7 +29,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.standard" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -44,6 +40,11 @@
     <property name="nodejs_package_manager_path" value="yarn" />
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
     <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Web Development Proyects\react-frontend\src" />
+    </key>
   </component>
   <component name="RunManager" selected="npm.npm start">
     <configuration name="Debug Application" type="JavascriptDebugType" uri="http://localhost:3000">
@@ -76,6 +77,7 @@
       <workItem from="1614461120844" duration="5757000" />
       <workItem from="1614472683055" duration="4409000" />
       <workItem from="1614504916362" duration="9601000" />
+      <workItem from="1614525537323" duration="750000" />
     </task>
     <servers />
   </component>

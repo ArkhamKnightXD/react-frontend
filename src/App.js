@@ -4,6 +4,7 @@ import axios from "axios";
 import TableComponent from './TableComponent'
 import {Button, Container} from "reactstrap";
 import ModalComponent from "./ModalComponent";
+import EditModalComponent from "./EditModalComponent";
 
 
 //si lo definimos como clase debemos de extender de componente y aplicar la funcion render
@@ -14,9 +15,8 @@ function App () {
   //Especifico un objeto con campos vacios para mi user initial
   const [actualUser, setActualUser] = useState({id:0, name:"", lastName:""});
   const [modalState, setModalState] = useState(false);
+  const [modalEditState, setModalEditState] = useState(false);
 
-  //Con estos estados definire si mi modal hara un create o un update
-  const [createSubmit, setCreateSubmit] = useState(false);
 
   //Tener cuidado a la hora de importar useEffect, pues lo estaba importandod e otro lugar y me daba error
   useEffect(() => {
@@ -45,6 +45,19 @@ function App () {
       setModalState(false);
   }
 
+
+    //funcion encargada de abrir modal
+    const openEditModal = (actualUser) =>{
+
+        setActualUser(actualUser);
+        setModalEditState(true);
+    }
+
+    const closeEditModal = () =>{
+
+        setModalEditState(false);
+    }
+
     return (
         <div className="App">
 
@@ -52,10 +65,12 @@ function App () {
               {/*Aqui indico qe cuando se haga click al boton se ejecute la funcion openModal  */}
               <Button color="success" onClick={openModal}>Insertar Nuevo Usuario</Button>
 
-            <TableComponent users={users} openModal={openModal} setUsers={setUsers} setCreateSubmit={setCreateSubmit} />
+            <TableComponent users={users} openEditModal={openEditModal} setUsers={setUsers} />
 
             {/*Mediante los props le mando al componente la funcion para cerrar el modal y tambie el valor del modal de si es true o false*/}
-            <ModalComponent setUsers={setUsers} actualUser={actualUser} setActualUser={setActualUser} modalState={modalState} closeModal={closeModal} createSubmit={createSubmit} />
+            <ModalComponent setUsers={setUsers} actualUser={actualUser} setActualUser={setActualUser} modalState={modalState} closeModal={closeModal} />
+
+            <EditModalComponent setUsers={setUsers} actualUser={actualUser} setActualUser={setActualUser} modalState={modalEditState} closeEditModal={closeEditModal} />
 
           </Container>
 
