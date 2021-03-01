@@ -1,26 +1,41 @@
 //Este servicio se encargara de las conexiones con el api para hacer mi app mas modular
-//Para hacer esto de la forma mas eficiente trabajare con redux , luego comentare cosas importantes de redux
-//probar redux los promises fallan
-
 import axios from "axios";
-import {createAsyncThunk} from "@reduxjs/toolkit";
 
-//me falla esta config investigare como trabajar con redux para mejorar estos metodos
 
-export const getAllUsers = async () => {
-    return new Promise(resolve => {
+//Estas son las formas simple de retornar datos de la api usando axios mediante funciones
+//esto puede mejorarse con redux y promises, pero para este ejemplo lo dejare asi
 
-        axios.get(`http://localhost:88/api/all`).then(res => {
-            resolve(res.data);
-        });
+//Recibo el setUser y le mando los datos del api
+export const getAllUsers = (setUsers) => {
+
+    axios.get(`http://localhost:88/api/all`).then(res => {
+
+        setUsers(res.data);
     });
 };
 
+//recibo el form con los datos del usuario
+export const createUser = async (form) =>{
 
-//metodo utilizando redux
-export const getAllUsers2 = createAsyncThunk('userService/users', async () => {
+    //forma basica de un post cuando no deseo recibir nada
+    await axios.post(`http://localhost:88/api/save`, form);
+};
 
-    const response = await axios.get(`http://localhost:88/api/all`);
-    const data = await response.data;
-    return { data };
-});
+export const getUserById = (actualId, setActualUserToEdit) =>{
+
+    axios.get(`http://localhost:88/api/get/${actualId}`).then(res => {
+
+        setActualUserToEdit(res.data);
+    });
+};
+
+export const updateUser = async (form) =>{
+
+    await axios.put(`http://localhost:88/api/update`, form);
+}
+
+export const deleteUserById = async (userId) =>{
+
+    await axios.delete(`http://localhost:88/api//delete/${userId}`);
+
+};

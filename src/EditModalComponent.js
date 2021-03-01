@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import {Button, FormGroup, Modal, ModalBody, ModalFooter, ModalHeader} from "reactstrap";
-import axios from "axios";
+import {getAllUsers, updateUser} from "./UserService";
 
 
 function EditModalComponent(props) {
@@ -12,7 +12,7 @@ function EditModalComponent(props) {
         lastName: props.actualUser.name
     };
 
-    //Especifico un objeto con campos vacios para mi user initial
+    //Especifico los estados que almacenaran los cambios de mi formulario
     const [name, setName] = useState("");
     const [lastName, setLastName] = useState("");
 
@@ -26,8 +26,6 @@ function EditModalComponent(props) {
 
         //Tengo que ejecutar el useEffect (renderizar la pagina) cada vez que el actualUser cambia
     }, [props.actualUser]);
-
-
 
 
     //Aqui guardo los cambios introducidos en los inputs
@@ -44,23 +42,14 @@ function EditModalComponent(props) {
         setLastName(form.lastName);
     }
 
-    //Aqui descontruyo el handleChange y el form  de useForm en los elementos que tengo en el parentesis
-   // const { handleChange, form } = useForm(defaultFormState);
-
     async function handleEditSubmit() {
 
         form.name = name;
         form.lastName = lastName;
 
-        await axios.put(`http://localhost:88/api/update`, form);
+        await updateUser(form);
 
-        //hago otro get para que se actualize en tiempo real la insercion que hice
-        axios.get(`http://localhost:88/api/all`).then(res => {
-
-            props.setUsers(res.data);
-        });
-
-        //finalmente cierro el modal
+        getAllUsers(props.setUsers);
 
         props.closeEditModal();
     }

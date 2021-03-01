@@ -1,7 +1,6 @@
 import React from "react";
 import {Button, FormGroup, Modal, ModalBody, ModalFooter, ModalHeader} from "reactstrap";
-import axios from "axios";
-
+import {createUser, getAllUsers} from "./UserService";
 
 function ModalComponent(props) {
 
@@ -22,8 +21,6 @@ function ModalComponent(props) {
         form.lastName = event.target.value;
     }
 
-    //Aqui descontruyo el handleChange y el form  de useForm en los elementos que tengo en el parentesis
-   // const { handleChange, form } = useForm(defaultFormState);
 
     //Esta funcion es la que se encargara de enviar los datos del formularios guardados en model para el backend
     //el async indica que esta funcion se ejecutara en 2do plano y los cambios se veran inmediato
@@ -32,19 +29,12 @@ function ModalComponent(props) {
 
         //si pongo las peticiones axios dentro de una funcion entonces no es necesario el useEffect
         //lo que si es correcto es definir los axios en el componente que se utilizaran no mandarlos por props
-        //forma basica de un post cuando no deseo recibir nada
-
-        //si es un create ejecutara save y sino ejecutara update
-
-
-        await axios.post(`http://localhost:88/api/save`, form);
+       //Aqui mando el form que contiene los datos insertados por el usuario
+        await createUser(form);
 
 
-        //hago otro get para que se actualize en tiempo real la insercion que hice
-        axios.get(`http://localhost:88/api/all`).then(res => {
-
-            props.setUsers(res.data);
-        });
+        //hago otro llamado a la funcion getAllUsers para que se actualize en tiempo real la insercion que hice
+        getAllUsers(props.setUsers);
 
         //finalmente cierro el modal
 

@@ -8,6 +8,7 @@ import DeleteModalComponent from "./DeleteModalComponent";
 function TableComponent(props) {
 
     const [deleteModalState, setDeleteModalState] = useState(false);
+
     //valor para guardar el id actual
     const [actualId, setActualId] = useState(0);
 

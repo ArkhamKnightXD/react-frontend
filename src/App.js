@@ -1,10 +1,10 @@
 import './App.css';
 import React, { useState, useEffect } from 'react';
-import axios from "axios";
 import TableComponent from './TableComponent'
 import {Button, Container} from "reactstrap";
 import ModalComponent from "./ModalComponent";
 import EditModalComponent from "./EditModalComponent";
+import {getAllUsers, getUserById} from "./UserService";
 
 
 //si lo definimos como clase debemos de extender de componente y aplicar la funcion render
@@ -14,7 +14,6 @@ function App () {
 
   //Especifico un objeto con campos vacios para mi user initial
   const [actualUser, setActualUser] = useState({id:0, name:"", lastName:""});
-
   const [actualUserToEdit, setActualUserToEdit] = useState({id:0, name:"", lastName:""});
   const [actualId, setActualId] = useState(0);
   const [modalState, setModalState] = useState(false);
@@ -24,20 +23,18 @@ function App () {
   //Tener cuidado a la hora de importar useEffect, pues lo estaba importandod e otro lugar y me daba error
   useEffect(() => {
 
-    // varios elementos axios y lo relacionado con la carga de datos desde un api va dentro de un useEffect para su correcto funcionamiento
+    // varios elementos axios y en especial lo relacionado con la carga de todos los datos desde un api va dentro de un useEffect para su correcto funcionamiento
       //este axios en especifico va aqui pues este carga todos los usuarios en siempre que se recargue la pagina
       //por esta razon lo queremos en un useEffe
-    axios.get(`http://localhost:88/api/all`).then(res => {
 
-      setUsers(res.data);
-    });
+      //llamos las funciones que contienen los axios en el UserService
+      getAllUsers(setUsers);
 
-      axios.get(`http://localhost:88/api/get/${actualId}`).then(res => {
+      getUserById(actualId,setActualUserToEdit);
 
-          setActualUserToEdit(res.data);
-      });
 
-      //Tengo que ejecutar el useEffect (renderizar la pagina) cada vez que el actualId cambia
+      //Tengo que ejecutar el useEffect (renderizar la pagina) cada vez que el actualId cambia para que ejecute
+      //el metodo getUserById de nuevo y cambie el usuario que manda
   }, [actualId]);
 
 

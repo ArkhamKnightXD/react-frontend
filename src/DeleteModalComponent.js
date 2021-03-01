@@ -1,18 +1,14 @@
 import {Button, Modal, ModalBody, ModalFooter} from "reactstrap";
-import axios from "axios";
+import {deleteUserById, getAllUsers} from "./UserService";
 
 
 function DeleteModalComponent(props) {
 
-    const deleteUserById = async (userId) => {
+    const deleteUser = async (userId) => {
 
-        await axios.delete(`http://localhost:88/api//delete/${userId}`);
+        await deleteUserById(userId);
 
-
-        axios.get(`http://localhost:88/api/all`).then(res => {
-
-            props.setUsers(res.data);
-        });
+        getAllUsers(props.setUsers);
 
         props.closeDeleteModal();
     }
@@ -24,7 +20,7 @@ function DeleteModalComponent(props) {
                     Estas seguro que desea eliminar el usuario
                 </ModalBody>
                 <ModalFooter>
-                    <Button color="danger" onClick={()=> deleteUserById(props.actualId)}>Eliminar</Button>
+                    <Button color="danger" onClick={()=> deleteUser(props.actualId)}>Eliminar</Button>
                     <Button color="secondary" onClick={props.closeDeleteModal}>Cancelar</Button>
                 </ModalFooter>
             </Modal>
